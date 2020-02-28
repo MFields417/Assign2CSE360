@@ -12,6 +12,7 @@
  * number that have been removed.
  */
 package cse360assign2;
+import java.util.Arrays;
 
 public class SimpleList {
 	private int[] list;
@@ -32,8 +33,13 @@ public class SimpleList {
 	 * @param newInt
 	 */
 	public void add(int newInt) {
-		int[] tempList = new int[10];
-		for (int idx = 0; idx <= 8; idx++) {
+		if (count == list.length-1) {
+			int[] newlist = new int[(list.length * (3))/2];
+			System.arraycopy(list, 0, newlist, 0, list.length);
+			list = newlist;
+		}
+		int[] tempList = new int[list.length];
+		for (int idx = 0; idx <= list.length-2; idx++) {
 			tempList[idx + 1] = list[idx];
 		}
 		tempList[0] = newInt;
@@ -45,11 +51,14 @@ public class SimpleList {
 	 * @param remInt
 	 */
 	public void remove(int remInt) {
-		int[] tempList = new int[10];
+		if(count < (list.length * (3)/4)) {
+			list = Arrays.copyOf(list, (list.length * (3)/4));
+			}
+		int[] tempList = new int[list.length];
 		int tempIdx = 0;
-		for (int idx = 0; idx < 10; idx++) {
+		for (int idx = 0; idx < list.length; idx++) {
 			if (list[idx] == remInt) {
-				if (count <= 10 && count >0){
+				if (count <= list.length && count >0){
 					count--;
 				}
 				continue;
@@ -75,7 +84,7 @@ public class SimpleList {
 	 * @return
 	 */
 	public int search(int reqInt) {
-		for(int idx = 0; idx < 10; idx++ ) {
+		for(int idx = 0; idx < list.length; idx++ ) {
 			if (list[idx] == reqInt) {
 				return idx;
 			}
@@ -87,10 +96,10 @@ public class SimpleList {
 	 */
 	public String toString() {
 		String arrayString = "";
-		for(int idx = 0; idx < 9; idx++) {
+		for(int idx = 0; idx < list.length-1; idx++) {
 		arrayString += Integer.toString(list[idx]) + " ";
 	}
-		arrayString += Integer.toString(list[9]);
+		arrayString += Integer.toString(list[list.length-1]);
 		return arrayString;
 	}
 	
