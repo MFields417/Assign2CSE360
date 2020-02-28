@@ -103,5 +103,32 @@ public class SimpleList {
 		return arrayString;
 	}
 	
+	public void append(int appInt) {
+		if (count == list.length-1) {
+			int[] newlist = new int[(list.length * (3))/2];
+			System.arraycopy(list, 0, newlist, 0, list.length);
+			list = newlist;
+		}
+		list[count] = appInt;
+		
+	}
+	public int first() {
+		if (count == 0) {
+			return -1;
+		}
+		else return list[0];
+	}
+	
+	public int last() {
+		if (count == 0) {
+			return -1;
+		}
+		else return list[count-1];
+	}
+	public int size() {
+		return list.length;
+	}
+	
+	
 
 }
